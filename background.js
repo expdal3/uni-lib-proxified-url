@@ -26,17 +26,24 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     // >>>Extract the // ..../ part and the articlePart
     let domainPart = match[0].substring(2, match[0].length - 1);
     let articlePart = tabUrl.slice(match.index + domainPart.length + 2, tabUrl.length);
+    console.log(domainPart);
     console.log(articlePart);
 
     // >>>find and replace all "." into "-"
     let dot1 = domainPart.indexOf("."),
-        dot2 = domainPart.indexOf(".", dot1 + 1);
-    console.log(dot1, " ", dot2);
+        dot2 = domainPart.indexOf(".", dot1 + 1),
+        dot3 = domainPart.indexOf(".", dot2 + 1);
+
+    console.log(dot1, " ", dot2, " ", dot3);
     let lookupstr = ".";
     let replacestr = "-";
     let newdomain = domainPart.replaceAt(dot1, replacestr);
-    newdomain = newdomain.replaceAt(dot2, replacestr) + schoolProxyDomain;
-    // console.log(domainPart);
+    if (dot3 == -1) {
+        newdomain = newdomain.replaceAt(dot2, replacestr) + schoolProxyDomain;
+    } else {
+        newdomain = newdomain.replaceAt(dot2, replacestr);
+        newdomain = newdomain.replaceAt(dot3, replacestr) + schoolProxyDomain;
+    }
     // console.log(newdomain);
 
     var myNewUrl = "https://" + newdomain + articlePart;
