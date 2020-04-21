@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "DeakinLibProxyURL",
+    "name": "DeakinLibProxifyURL",
     "version": "1.0.0",
     "content_scripts": [{
         "matches": ["<all_urls>"],
